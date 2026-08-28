@@ -1,0 +1,28 @@
+#
+#  Written by Tessent Shell 2022.4 on Fri Aug 21 13:43:57 IST 2026
+#
+proc tessent_scan_common {} {
+   add_clocks 1 rst
+   add_clocks 0 clk
+}
+
+
+proc tessent_scan_unwrapped_mode {} {
+   add_scan_groups grp1 outputs/count_scan_testproc.testproc
+
+   add_scan_chains chain0 grp1 {/ts_si[0]} {/ts_so[0]}
+
+   tessent_scan_common
+
+}
+
+
+proc tessent_scan_setup { {mode unwrapped} } {
+   switch -exact -- $mode {
+      unwrapped { tessent_scan_unwrapped_mode }
+      default {
+         display_message -error "invalid scan mode: $mode"
+      }
+   }
+}
+
