@@ -1,0 +1,277 @@
+//  command: 
+//  command: set_context patterns -scan
+//  command: 
+//  command: read_verilog outputs/count_scan.v
+//  command: read_cell_library lib/slow_vdd1v0.mdt
+//  Reading DFT Library file lib/slow_vdd1v0.mdt
+//  Finished reading file lib/slow_vdd1v0.mdt
+//  command: 
+//  command: 
+//  command: #set_logfile_handling pattern_generation.log -rep
+//  command: 
+//  command: set_current_design 
+//  Note: Top design is 'counter'.
+//  Warning: 57 cases: Unused net in DFT library model
+//  Note: Issue set_current_design with the -show_elaboration_warnings option to see more details about previous warnings
+//  command: 
+//  command: #add_black_boxes -auto 
+//  command: 
+//  command: # Load generated test procedure file
+//  command: dofile outputs/count_scan_testproc_verify_scan_modes.dofile
+//  command: set dofileName outputs/count_scan_testproc.dofile
+//  command: set designFile /home/syed/internship/backend/dft_tessent/outputs/count_scan.v
+//  command: set topName {counter}
+//  command: set libName "lib/slow_vdd1v0.mdt"
+//  command: proc verify_all_scan_modes {} {
+//              set modeList [list unwrapped]
+//              foreach mode $modeList {
+//                 set_system_mode setup
+//                 reset_design
+//                 tessent_scan_setup $mode
+//                 set_edt_options off
+//                 add_black_box -auto
+//                 set_system_mode analysis
+//                 report_scan_cells
+//              }
+//           }
+//  command: set_context patterns -scan
+//  command: delete_design 
+//  command: read_cell_library $libName
+//  Reading DFT Library file lib/slow_vdd1v0.mdt
+//  Finished reading file lib/slow_vdd1v0.mdt
+//  command: read_verilog $designFile
+//  command: set_current_design $topName
+//  Warning: 57 cases: Unused net in DFT library model
+//  Note: Issue set_current_design with the -show_elaboration_warnings option to see more details about previous warnings
+//  command: dofile $dofileName
+//    command: #
+//    command: #  Written by Tessent Shell 2022.4 on Fri Aug 21 13:43:57 IST 2026
+//    command: #
+//    command: proc tessent_scan_common {} {
+//                add_clocks 1 rst
+//                add_clocks 0 clk
+//             }
+//    command: proc tessent_scan_unwrapped_mode {} {
+//                add_scan_groups grp1 outputs/count_scan_testproc.testproc
+//             
+//                add_scan_chains chain0 grp1 {/ts_si[0]} {/ts_so[0]}
+//             
+//                tessent_scan_common
+//             
+//             }
+//    command: proc tessent_scan_setup { {mode unwrapped} } {
+//                switch -exact -- $mode {
+//                   unwrapped { tessent_scan_unwrapped_mode }
+//                   default {
+//                      display_message -error "invalid scan mode: $mode"
+//                   }
+//                }
+//             }
+//  command: verify_all_scan_modes
+//  sub-command: set_system_mode setup 
+//  Warning: Already in requested state.
+//  sub-command: reset_design 
+//  sub-command: add_scan_groups grp1 outputs/count_scan_testproc.testproc 
+//  sub-command: add_scan_chains chain0 grp1 /ts_si[0] /ts_so[0] 
+//  sub-command: add_clocks 1 rst 
+//  sub-command: add_clocks 0 clk 
+//  sub-command: set_edt_options off 
+//  sub-command: add_black_boxes -auto 
+//  sub-command: set_system_mode analysis 
+//  Flattening process completed, cell instances=23, gates=112, PIs=4, POs=9, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  Begin circuit learning analyses.
+//  --------------------------------
+//  Learning completed, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  Begin scan chain identification process, memory elements = 9.
+//  ---------------------------------------------------------------------------
+//  Reading group test procedure file outputs/count_scan_testproc.testproc.
+//  Begin simulation of load_unload procedure.
+//  Simulation of load_unload procedure completed, CPU time=0.0 sec.
+//  Chain = chain0 successfully traced with scan_cells = 8.
+//  8 scan cells have been identified in 1 scan chain.
+//  ---------------------------------------------------------------------------
+//  Begin transparent latch checking for 1 latches.
+//  ---------------------------------------------------------------------------
+//  Number transparent latches = 1.
+//  ---------------------------------------------------------------------------
+//  Begin scan clock rules checking.
+//  ---------------------------------------------------------------------------
+//  2 scan clock/set/reset lines have been identified.
+//  All scan clocks successfully passed off-state check.
+//  Capture clock is set to clk.
+//  ---------------------------------------------------------------------------
+//  1 non-scan memory element is identified.
+//  ---------------------------------------------------------------------------
+//  1 non-scan memory element is identified as TLA. (D5)
+//  ---------------------------------------------------------------------------
+//  sub-command: report_scan_cells 
+ cell#   chain    memory_type     inv   gate#    shift_clock  inv  cell_name                     instance_name                    (ext. pin names)
+ -----  ------  ---------------  ----  -------  -----------------  ---------  --------------------------------------------------  ----------------
+ 0      chain0  MASTER  (FF-LE)  FFFF      102  /clk          F    SDFFRX1    /\count_reg[0]                    U$1/i0/mlc_dff    (SI,Q)          
+                TLA     (LA-AL)  F---      103  /clk          T    TLATNXL    /ts_lockup_latchn_clkc1_intno7_i  U$1/i0/mlc_latch  (-,-)           
+ 1      chain0  MASTER  (FF-LE)  FFFF      101  /clk          F    SDFFRHQX1  /\count_reg[1]                    U$1/i0/mlc_dff    (SI,Q)          
+ 2      chain0  MASTER  (FF-LE)  FFFF      100  /clk          F    SDFFRHQX1  /\count_reg[2]                    U$1/i0/mlc_dff    (SI,Q)          
+ 3      chain0  MASTER  (FF-LE)  FFFF       99  /clk          F    SDFFRHQX1  /\count_reg[3]                    U$1/i0/mlc_dff    (SI,Q)          
+ 4      chain0  MASTER  (FF-LE)  FFFF       98  /clk          F    SDFFRHQX1  /\count_reg[4]                    U$1/i0/mlc_dff    (SI,Q)          
+ 5      chain0  MASTER  (FF-LE)  FFFF       97  /clk          F    SDFFRHQX1  /\count_reg[5]                    U$1/i0/mlc_dff    (SI,Q)          
+ 6      chain0  MASTER  (FF-LE)  FFFF       96  /clk          F    SDFFRHQX1  /\count_reg[6]                    U$1/i0/mlc_dff    (SI,Q)          
+ 7      chain0  MASTER  (FF-LE)  FFFF       95  /clk          F    SDFFRHQX1  /\count_reg[7]                    U$1/i0/mlc_dff    (SI,Q)          
+
+//  command: 
+//  command: 
+//  command: # Add faults
+//  command: add_faults -all
+//  command: 
+//  command: # Generate ATPG patterns
+//  command: create_patterns 
+// | ------------------------------------------------------------------------------------------------------------------ |
+// |                                             Analyzing the design                                                   |
+// |                                                                                                                    |
+// |      Current clock restriction setting:     Domain_clock (edge interaction)                                        |
+// |                                             (optimal)                                                              |
+// |                                                                                                                    |
+// |            Current abort limit setting:     30                                                                     |
+// |                                Calling:     set_abort_limit 300 100                                                |
+// | ------------------------------------------------------------------------------------------------------------------ |
+// |                                                                                                                    |
+// |               Current sequential depth:     0 (optimal)                                                            |
+// |                                                                                                                    |
+// | ------------------------------------------------------------------------------------------------------------------ |
+//  ------------------------------------------------------------------------
+//  Simulation performed for #gates = 112  #faults = 139
+//  system mode = analysis    pattern source = internal patterns
+//  ------------------------------------------------------------------------
+//  #patterns  test      #faults  #faults    # eff.    # test         process      RE/AU/AAB
+//  simulated  coverage  in list  detected   patterns  patterns       CPU time
+//   ---        ------      ---       ---      ---       ---          0.14 sec     0/0/0
+//   16        100.00%        0       139       10        10          0.14 sec
+
+           Statistics Report          
+            Stuck-at Faults           
+--------------------------------------
+Fault Classes               #faults   
+                            (total)   
+----------------------  --------------
+  FU (full)                   214     
+  --------------------  --------------
+  DS (det_simulation)     139 (64.95%)
+  DI (det_implication)     73 (34.11%)
+  UU (unused)               2 ( 0.93%)
+--------------------------------------
+Coverage                              
+  --------------------                
+  test_coverage               100.00% 
+  fault_coverage               99.07% 
+  atpg_effectiveness          100.00% 
+--------------------------------------
+#test_patterns                     10 
+#simulated_patterns                16 
+CPU_time (secs)                   9.2 
+--------------------------------------
+
+//  command: 
+//  command: # ATPG reports
+//  command: report_statistics 
+           Statistics Report          
+            Stuck-at Faults           
+--------------------------------------
+Fault Classes               #faults   
+                            (total)   
+----------------------  --------------
+  FU (full)                   214     
+  --------------------  --------------
+  DS (det_simulation)     139 (64.95%)
+  DI (det_implication)     73 (34.11%)
+  UU (unused)               2 ( 0.93%)
+--------------------------------------
+Coverage                              
+  --------------------                
+  test_coverage               100.00% 
+  fault_coverage               99.07% 
+  atpg_effectiveness          100.00% 
+--------------------------------------
+#test_patterns                     10 
+#simulated_patterns                16 
+CPU_time (secs)                   9.2 
+--------------------------------------
+
+//  command: report_faults -summary
+           Statistics Report          
+            Stuck-at Faults           
+--------------------------------------
+Fault Classes               #faults   
+                            (total)   
+----------------------  --------------
+  FU (full)                   214     
+  --------------------  --------------
+  DS (det_simulation)     139 (64.95%)
+  DI (det_implication)     73 (34.11%)
+  UU (unused)               2 ( 0.93%)
+--------------------------------------
+Coverage                              
+  --------------------                
+  test_coverage               100.00% 
+  fault_coverage               99.07% 
+  atpg_effectiveness          100.00% 
+--------------------------------------
+#test_patterns                     10 
+#simulated_patterns                16 
+CPU_time (secs)                   9.2 
+--------------------------------------
+
+//  command: help write
+write_cell_library
+write_config_data
+write_core_description
+write_core_timing_constraints
+write_design
+write_design_import_script
+write_design_source_dictionary
+write_failures
+write_fault_sites
+write_faults
+write_flat_model
+write_loops
+write_modelfile
+write_patterns
+write_pdl
+write_procedure_testbench
+write_procfile
+write_schematic_dofile
+write_tsdb_data
+//  command: help write_patterns 
+Usage:  write_patterns  <pattern_filename> [ <format_switch> ]
+                                          [ -PATTERN_SEts [chain] [scan] [burnin_loop] [lvx_loop] [lvx_verification] ]
+                                          [ -Replace ]
+                                          [ -PROcfile <procedure_filename> ]
+                                          [ -PARAMeter_file <parameter_filename> ]
+                                          [ -PARAMETER_List <list_parameter_pairs> ]
+                                          [ -PARALlel | -Serial ]
+                                          [ -BEgin {<pattern_number> | <pattern_name>} ]
+                                          [ -END {<pattern_number> | <pattern_name>} ]
+                                          [ -TAg <tag_name> ]
+                                          [ -CEll_placement { Bottom | Top | None } ]
+                                          [ -ENVironment ]
+                                          [ -TEST_Setup { ONLy | ONE | OFf | ONE_Per_file } ]
+                                          [ -TEST_End { ONLy | ONE | OFf } ]
+                                          [ -TEST_Payload ]
+                                          [ -ALL_Setup_only ]
+                                          [ -ALL_End_only ]
+                                          [ -EXternal ]
+                                          [ -SAmple [ <integer> ] ]
+                                          [ -IDDQ_file ]
+                                          [ -MODE_Internal | -MODE_External ]
+                                          [ -NOPadding | -PAD0 | -PAD1 ]
+                                          [ -MAXloads <load_number> [-ADD_pattern_index_range_to_filename | -ADD_Load_range_to_filename] ]
+                                          [ -PATtern_size <integer> ]
+                                          [ -MEMory_size <size_in_KB> ]
+                                          [ -SCAN_Memory_size <size_in_KB> ]
+                                          [ -VECTOR_Set <TCL_vector_set_definition> ]
+                                          [ -VERBose ]
+
+Values of format_switch:  -Ascii, -BInary, -Wgl, -Verilog, -Stil1999, -CTl2005,
+                         -STIL2005, -TItdl, -Fjtdl, -MItdl, -TSTl2, -PATDB.
+//  command: write_patterns outputs/patterns_ascii.v -Verilog 
+//  command: exit 
