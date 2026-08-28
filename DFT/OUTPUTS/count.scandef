@@ -1,0 +1,31 @@
+#
+#    DESC: ScanDEF written by Tessent Shell on Fri Aug 21 13:43:57 IST 2026
+#
+
+VERSION 5.7 ;
+DIVIDERCHAR "/" ;
+BUSBITCHARS "[]" ;
+DESIGN counter ;
+UNITS DISTANCE MICRONS 1000 ;
+
+SCANCHAINS 1 ;
+
+- scan_segment_0
+  + START tessent_persistent_cell_buf_extsi8_i Y
+  + FLOATING 
+      \count_reg[7]  ( IN SI ) ( OUT Q )
+      \count_reg[6]  ( IN SI ) ( OUT Q )
+      \count_reg[5]  ( IN SI ) ( OUT Q )
+      \count_reg[4]  ( IN SI ) ( OUT Q )
+      \count_reg[3]  ( IN SI ) ( OUT Q )
+      \count_reg[2]  ( IN SI ) ( OUT Q )
+      \count_reg[1]  ( IN SI ) ( OUT Q )
+      \count_reg[0]  ( IN SI ) ( OUT Q )
+  + STOP ts_lockup_latchn_clkc1_intno7_i D
+  # Partition constraints - clock domain: clk(+); chain type: core; scan mode(s): unwrapped
+  + PARTITION partition_1  MAXBITS 8 ;
+
+
+END SCANCHAINS 
+
+END DESIGN
